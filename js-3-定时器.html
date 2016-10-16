@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+#box{
+	width:120px;
+	height:120px;
+	position:absolute;
+	left:0px;
+	top:40px;
+	background-color:#7A34D7;}
+</style>
+<script>
+window.onload=function(){
+	var box=document.getElementById("box");
+	var btn1=document.getElementById("btn1");
+	var btn2=document.getElementById("btn2");
+	var timer;
+
+	
+	btn1.onclick=function(){
+		var w=parseInt(getComputedStyle(box).width);
+		var l=parseInt(getComputedStyle(box).left);
+		var t=parseInt(getComputedStyle(box).top);
+		var h=parseInt(getComputedStyle(box).height);
+		
+		timer=setInterval(function(){
+			
+			w++;
+			l++;
+			t++;
+			h++;
+			box.style['width']=w+"px";
+			box.style['left']=l+"px";
+			box.style['height']=h+"px";
+			box.style['top']=t+"px";
+			},16);
+		
+
+		
+		btn2.onclick=function(){
+			clearInterval(timer);
+			}
+		}
+	
+	
+	}
+</script>
+
+</head>
+
+<body>
+<button id="btn1">开始</button>
+<button id="btn2">停止</button>
+<div id="box"></div>
+</body>
+</html>

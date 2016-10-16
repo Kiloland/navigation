@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+div{
+	float:left;}
+#div1{
+	width:100%;
+	background-image:url(images/sun.png);
+	background-repeat:no-repeat;
+	background-size:100%;}
+#middle{
+	
+	border-image:url(images/QQ%E5%9B%BE%E7%89%8720161014214914.png) 30 round;
+	border-image-width:55px;
+	border-image-slice:10%;
+	text-align:center;
+	vertical-align:middle;
+	background-color:#FFF;
+	width:609px;
+	heigth:510px;}
+canvas{
+	position:relative;
+	top:55px;
+	background-color:#F0DB98;
+	border:1px solid #c3c3c3;}
+</style>
+<script>
+window.onload=function(){
+	var c=document.getElementById("myCanvas");
+	var time=100;
+	var cxt=c.getContext("2d");
+	var x=y=32;
+	var a=0;
+	var t=8;
+	var map=[];
+	var size=8;
+	var direction=2;
+	
+		function rand_frog(){
+			a=Math.ceil(Math.random()*50);
+			cxt.fillstyle="#00ff00";
+			cxt.strokeStyle="#00B100";
+			cxt.fillRect(a*8,a*8,8,8);
+			}
+			rand_frog();
+		document.onkeydown=function(e){
+			var code=e.keyCode-37;
+			switch(code){
+				case 1:direction=1;break;
+				case 2:direction=2;break;
+				case 3:direction=3;break;
+				case 0:direction=0;break;
+				}
+			}
+			
+		function set_game_speed(){
+			switch(direction){
+				case 1:y=y-size;break;
+				case 2:x=x+size;break;
+				case 0:x=x-size;break;
+				case 3:y=y+size;break;
+		
+				}
+				if(map.length>t){
+					var cl=map.shift();
+					cxt.clearRect(cl['x'],cl['y'],size,size);
+				
+				}
+				map.push({'x':x,'y':y});
+				cxt.fillStyle="#00b100";
+				cxt.strokeStyle="#00B100";
+				cxt.fillRect(x,y,size,size);
+			
+			if(x>400||y>400||x<0||y<0){
+				if(x>400){x=0;}
+				if(y>400){y=0;}
+				if(x<0){x=400;}
+				if(y<0){y=400;}
+				}
+		
+				
+			if((a*8)==x&&(a*8)==y){
+				t++;
+				rand_frog();
+				}
+		
+
+			function change(){
+		
+				for(var i=0;i<map.length-1;i++){
+					console.log(map[i-1]);
+					
+				if(parseInt(map[i].x)==x && parseInt(map[i].y)==y){
+					
+				console.log(parseInt(map[i].x));
+				//	console.log(x);
+					
+					
+					alert("咬到自己了");
+					window.location.reload();}
+							}						
+										
+						}
+			}
+		interval=window.setInterval(set_game_speed,time);
+		
+	//	timeout=window.setTimeout(change,5000);
+}
+</script>
+</head>
+
+<body>
+<div>
+	<div id="div1"></div>
+    	<div id="left"></div>
+        <div id="middle">
+        	<canvas id="myCanvas" width="400" height="400"></canvas>
+        </div>
+        <div id="right"></div>
+		
+</div>
+</body>
+</html>

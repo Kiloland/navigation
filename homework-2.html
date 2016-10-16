@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>作业二</title>
+<style>
+#num{
+	background-color:#ccc;
+	position:absolute;
+	top:100px;
+	width:1002px;
+	margin:0 auto;
+	text-align:center;}
+#text{
+	background-color:#ccc;
+	position:absolute;
+	width:1002px;
+	margin:0 auto;
+	text-align:center;}
+#box{
+	width:1000px;
+	margin-top:10px;
+	border:2px solid #827C7D;
+	/*position:relative;*/}
+#cir{
+	display:none;}
+#ord{
+	display:none;}
+
+</style>
+<script src="jquery-3.1.1.js"></script>
+<script>
+//问题：无法显示出“1/6”
+/*
+循环切换 顺序切换
+*/
+window.onload=function(){
+	var circular=document.getElementById("circular");
+	var order=document.getElementById("order");
+	var cir=document.getElementById("cir");
+	var ord=document.getElementById("ord");
+	var last=document.getElementById("last");
+	var next=document.getElementById("next");
+	var pic=document.getElementById("pic");
+	
+	var num=document.getElementById("num");
+	var text=document.getElementById("text");
+	
+	var n=0;
+	var imgArr=['68a0d5e5jw1f6vphwdxgwj20ku0kudja','68a0d5e5jw1f6udufubkkj21kw1kwe00','68a0d5e5jw1f6wpglzwf6j21kw1kwwwp','68a0d5e5jw1f6tlmmkfluj22c02c0hdt','68a0d5e5jw1f6zgvggreaj20rt0rtgpc','68a0d5e5jw1f70b6o8lufj20pf0zkjtm'];
+	var textArr=['亲爱的大彭','彭eddie','男朋友','哈哈哈','66666','夜夜夜夜'];
+	num.innerHTML="1/"+imgArr.length; //初始化数字
+	text.innerHTML=textArr[0];//初始化内容
+	var on=true;
+	
+order.onclick=function(){
+	on=true;
+	};
+		$("#order").click(function(){
+			$("#ord").toggle(3000)
+			});
+circular.onclick=function(){
+	on=false;};
+		$("#circular").click(function(){
+			$("#cir").toggle(3000);
+			});
+	//ord.style.display="block";
+	//cir.style.display="none";
+	
+	next.onclick=function(){
+		n++;
+		
+		if(n>imgArr.length-1){
+			
+			if(on==true){
+			
+			n=imgArr.length-1;
+			 alert("这已经是最后一张了，不能在再往后了");}
+			 else{
+				 n=0;}
+			 }
+			pic.src="images/"+imgArr[n]+".jpg";	
+			num.innerHTML=n+1+"/"+imgArr.length;
+			text.innerHTML=textArr[n];
+		}
+		
+	last.onclick=function(){
+		n--;	
+		
+		if(n<0){		
+			if(on==true){
+			n=0;
+			
+			alert("这已经是第一张了，不能再往前了"); }
+			else{
+				n=imgArr.length-1;}	
+			} 
+			pic.src="images/"+imgArr[n]+".jpg";
+			num.innerHTML=n+1+"/"+imgArr.length;
+			text.innerHTML=textArr[n];
+		
+		
+		};
+	
+	
+	}
+	/*cir.style.display="block";
+	ord.style.display="none";
+	next.onclick=function(){
+		n++;
+		if(n>imgArr.length-1){
+			n=0;
+			}
+		pic.src="images/"+imgArr[n]+".jpg";
+			num.innerHTML=n+1+"/"+imgArr.length;
+		text.innerHTML=textArr[n];
+		};
+	last.onclick=function(){
+		n--;	
+		if(n<0){		
+			n=imgArr.length-1;
+			 }	 
+		pic.src="images/"+imgArr[n]+".jpg";
+			num.innerHTML=n+1+"/"+imgArr.length;
+		text.innerHTML=textArr[n];
+		}*/
+
+
+
+</script>
+
+</head>
+
+<body>
+<form>
+<input type="button" id="circular" value="循环切换" />
+<input type="button" id="order" value="顺序切换" />
+<p id="cir">图片可以从最后一张跳转到第一张循环切换</p>
+<p id="ord">图片只能到最后一张或只能到第一张切换</p>
+</form>
+<img src="images/QQ图片20160928150059.png" id="last"/>
+<img src="images/QQ图片20160928150145.png" id="next"/>
+<div id="num"></div>
+<div id="box"><img src="images/68a0d5e5jw1f6vphwdxgwj20ku0kudja.jpg" id="pic"/></div>
+
+<div id="text"></div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>实践题 - 选项卡</title>
+</head>
+<body>
+<script>
+	var c=10;
+	function fn(){
+		console.log(c); //10 大括号里进行预解析，找var声明的东西，没找到就逐行解读代码，所以console中c向父级寻找
+		c=20;}
+		fn();
+	var b=12;
+	function fn1(){
+		//var b=undefined;先找东西，var声明的 有 var b=20，所以预解析给它一个 var b=undefined，放在作用域开始的位置，然后执行代码
+		console.log(b);//undefined
+		var b=20;}
+	fn1();
+
+	var d=12;
+	function fn2(d){ //如果实参没有传进函数中，默认参数是var d=undefined
+		console.log(d); //undefined //2
+		d=24;
+		}
+	fn2();//fn2(2)
+	console.log(d); //12
+	
+	fun(); //可以调用
+	function fun(){
+		console.log("fun");
+		}
+	fun2(); //报错
+	var fun2=function(){
+		console.log("fun2");
+		}
+//闭包		
+	function fun3(){
+		var n=10; //局部变量
+		function fun4(){ //局部函数
+			n++;
+			console.log(n);
+			}
+		fun4();
+		}
+		fun3(); //11
+		fun3();//11 根本原因：函数fun3在执行完成以后，变量n在其他地方没有被使用，就被放入了垃圾回收机制当中。再去fun3的时候，此时内存已经没有n这个变量了，只不过是重新声明了一个n
+			
+		
+		
+		
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		#container {
+			height: 620px;
+			width: 300px;
+			background: url("images/mobile.png") no-repeat center center;
+			margin: auto;
+			position: relative;
+		}
+		#content {
+			height: 375px;
+			width: 236px;
+			position: absolute;
+			top: 100px;
+			left: 32px;
+			overflow: scroll;
+		}
+		#footer {
+			margin: 0;
+			position: absolute;
+			left: 32px;
+			bottom: 100px;
+			background: #eee;
+			border-top: 1px solid gray;
+			border-bottom: 1px solid gray;
+			width: 236px;
+			text-align: center;
+			display: inline;
+			line-height: 39px;
+		}
+		#avatar {
+			width: 24px;
+			height: 24px;
+			border: 1px solid gray;
+			border-radius: 5px;
+			padding: 2px;
+			vertical-align: middle;
+			cursor: pointer;
+
+		}
+		#message {
+			height: 23px;
+			width: 140px;
+			font-size: 12px;
+			vertical-align: middle;
+		}
+		#send {
+			border: 1px solid gray;
+			padding: 5px;
+			vertical-align: middle;
+			border-radius: 5px;
+			font-size: 14px;
+			color: gray;
+			text-decoration: none;
+			cursor: pointer;
+		}
+		#content p {
+			margin: 2px;
+		}
+		#content span {
+			font-size: 14px;
+			display: inline-block;
+			padding: 5px;
+			border: 1px solid gray;
+			border-radius: 5px;
+			margin: 3px;
+			max-width: 160px;
+			vertical-align: top;
+			word-wrap: break-word;
+		}
+		#content img {
+			height: 24px;
+			width: 24px;
+			border: 1px solid gray;
+			border-radius: 5px;
+			padding: 2px;
+			margin: 3px;
+			vertical-align: top;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var avatar=document.getElementById("avatar");
+			var send=document.getElementById("send");
+			var message=document.getElementById("message");
+			var content=document.getElementById("content");
+			
+			//给头像添加点击事件
+			var on=true;	//用来决定显示哪个头像，true对应第一个头像，false对应第二个头像
+			avatar.onclick=function(){
+				if(on==true){
+					avatar.src='images/night.png';
+					on=false;
+				}else{
+					avatar.src='images/sun.png';
+					on=true;
+				}
+			};
+			
+			
+			//点击发送按钮
+			send.onclick=function(){
+				/*
+				 * 1、取到头像
+				 * 2、取到用户输的内容
+				 * 3、把取到的东西添加到消息框里面
+				 */
+				
+				if(message.value==''){
+					alert('请输入内容');
+					return;
+				}
+				
+				if(on==true){
+					//这个条件成立，说明用户点的是第一个头像，要让消息在右边显示
+					content.innerHTML='<p style="text-align: right"><span style="background: #f00">'+message.value+'</span><img src="images/sun.png"></p>'+content.innerHTML;
+				}else{
+					//走到这，说明用户点击的是第二个头像，要让消息在左边显示
+					content.innerHTML='<p style="text-align: left"><img src="images/night.png"><span style="background: #8bf">'+message.value+'</span></p>'+content.innerHTML;	
+				}
+				
+				message.value='';
+			};
+		};
+	</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="content">
+			</div>
+			<p id="footer">
+				<img id="avatar" src="images/sun.png">
+				<input id="message" type="text" placeholder="选头像、输文字、点发送">
+				<a id="send" href="javascript:">发送</a>
+			</p>	
+		</div>
+	</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{
+	margin:0;
+	padding:0;}
+#box{
+	border:1px solid red;
+	width:200px;
+	height:200px;
+	line-height:200px;
+	text-align:center;
+
+	
+}
+#pic{
+	vertical-align:middle;
+	
+}	
+	
+	
+	
+</style>
+<script>
+
+/*var bb = 1;
+function aa() {
+   bb = 2;
+   alert(bb);
+};
+aa();
+alert(bb);*/
+var x = new Boolean(false);
+
+if (x) {
+  //alert('hi'); 
+}
+var y = Boolean(1);
+console.log(y);
+if (y) {
+  //alert('hello');  
+}
+window.onload=function(){
+ var elements=document.getElementsByTagName('li');
+    var length=elements.length;
+    for(var i=0;i<length;i++){
+        elements[i].onclick=function(){
+        console.log(i);
+    }
+ }
+}
+var b=8;
+for(var i=0;i<10;i++){
+	b=i*2+i;
+	//console.log(b);
+	}
+console.log(b);
+
+
+</script>
+</head>
+
+<body>
+<div id="box">
+<img src="images/11.jpg" id="pic"/>
+</div>
+<div style="height:1px;overflow:hidden;background:#000"></div>
+<ul>
+	<li>bb</li>
+	<li>vv</li>
+	<li>nn</li>
+	<li>mm</li>
+</ul>
+</body>
+</html>

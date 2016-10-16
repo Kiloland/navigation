@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>作业三</title>
+<style>
+#box1{
+	width:600px;
+	position:absolute;
+	top:100px;
+	left:150px;
+	border-width:20px 20px 100px 20px;
+	border-style:solid;
+	border-color:#f00;}
+#box2{
+	width:300px;
+	position:absolute;
+	right:200px;
+	top:100px;
+	/*border-width:20px 20px 100px 20px; 边框的方式
+	border-style:solid;
+	border-color:#2745D3;*/
+	border:20px solid #2745D3;
+	border-bottom:100px solid #2745D3;}
+#btns{
+	position:absolute;
+	top:50px;
+	left:150px;}
+
+</style>
+<script>
+window.onload=function(){
+	var last=document.getElementById("last");
+	var next=document.getElementById("next");	
+	var left=document.getElementById("left");	
+	var right=document.getElementById("right");	
+	var imgArr1=['68a0d5e5gw1f7b2mfotw0j20ku0fmto8','68a0d5e5gw1f7b2r3ylx9j20ku0fmws7','68a0d5e5gw1f7b2rn4fenj20ku0fmdrq','68a0d5e5jw1f70b6n3jugj20zk0om0vb'];
+	var imgArr2=['1','3','4'];
+	var n=0;
+	var m=0;
+	
+	
+	next.onclick=function(){
+		n++;m++;
+		if(n>imgArr1.length-1){
+			n=0;
+			}
+		if(m>imgArr2.length-1){m=0;}
+		left.src="images/"+imgArr1[n]+".jpg";
+		right.src="images/"+imgArr2[m]+".jpg";
+		}
+
+	
+	last.onclick=function(){
+			n--;m--;
+		if(n<0){
+			n=imgArr2.length-1;
+			}
+		if(m<0){m=imgArr2.length-1;}
+		left.src="images/"+imgArr1[n]+".jpg";
+		right.src="images/"+imgArr2[m]+".jpg";
+		
+		}
+	
+	left.onclick=function(){
+		n++;
+		if(n>imgArr1.length-1){
+			n=0;
+			//console.log(n);
+			}
+		left.src="images/"+imgArr1[n]+".jpg";
+		}
+	right.onclick=function(){
+			n++;
+		if(n>imgArr2.length-1){
+			n=0;
+			//console.log(n);
+			}
+		right.src="images/"+imgArr2[n]+".jpg";
+		
+		}
+}
+
+
+
+</script>
+
+
+</head>
+
+<body>
+<div id="btns">
+	<input type="button" id="last" value="上一组"/>
+	<input type="button" id="next" value="下一组"/>
+</div>
+<div id=box1>
+	<img src="images/68a0d5e5gw1f7b2mfotw0j20ku0fmto8.jpg" id="left"/>
+</div>
+<div id=box2>
+	<img src="images/1.jpg" id="right"/>
+</div>
+
+</body>
+</html>

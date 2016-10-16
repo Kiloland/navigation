@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>实践题 - 选项卡</title>
+</head>
+<body>
+<script>
+//怎样在函数外面调用函数内部的东西
+//闭包的作用:让函数内的局部变量与局部函数在外面可以访问到  内存泄漏
+
+var innerFn=null;//声明一个全局变量，用来存储内部函数  但是全局变量不好(容易把window里的属性覆盖)，建议用第二个方法（return）
+
+function fn1(){
+	var n=10;
+	function fn2(){
+		n++;
+		console.log(n);
+		}
+	fn2();
+	
+	innerFn=fn2;
+	
+	}
+	fn1();
+	innerFn(); //12
+	innerFn(); //13
+	
+	
+	
+function fun1(){
+	var n=10;
+	function fun2(){
+		n++;
+		console.log(n);
+		}
+		return fun2;//返回值  函数fun1执行完成之后，得到的结果是return fun2()
+	}
+	//console.log(fun1()); //fun2()函数内容
+var newFun=fun1();
+newFun();//11
+newFun();//12
+//因为 var newFn也是声明了一个全局变量，可以把它放到函数里
+function fun3(){
+	var newFun=fun1();
+	newFun();//11
+	newFun();
+	}
+
+</script>
+ 
+</body>
+</html>

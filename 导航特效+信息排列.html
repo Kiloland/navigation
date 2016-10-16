@@ -1,0 +1,562 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>导航特效和信息排列</title>
+
+<style type="text/css">
+*{margin:0px;padding:0px;}
+body{
+	font-size:14px;
+	line-height:14px;}
+
+.top{height:40px;}   
+.top a{
+	width:16px;
+	height:16px;
+	display:block;
+	float:right;
+	margin:5px;
+	}
+	.btn-list-off{background:#fff url(http://img.mukewang.com/53352d61000153cc00710057.jpg) no-repeat -38px 0px;}
+	.btn-car-on{background:#fff url(http://img.mukewang.com/53352d61000153cc00710057.jpg) no-repeat -21px -34px;}
+	
+	.btn-list-on{background:#fff url(http://img.mukewang.com/53352d61000153cc00710057.jpg) no-repeat -21px 0px;}
+	.btn-car-off{background:#fff url(http://img.mukewang.com/53352d61000153cc00710057.jpg) no-repeat -38px -32px;}
+a{
+	text-decoration:none;}
+#box,#item1,#item2,#item3,#item4{
+	width:550px;
+	height:auto;
+	margin:5px auto;
+	border:1px solid #88BBFF;
+	overflow:hidden;}
+li{
+	width:164px;
+	height:auto;
+	float:left;
+	list-style:none;
+	margin:7px;
+	border:1px solid #f00;} 
+.a-img{
+	width:164px;
+	height:164px;
+	display:block;
+	overflow:hidden;}
+p a,p span{
+	color:#000;
+	display:block;
+	line-height:20px;
+	margin-left:5px;}
+.bottom{
+	background-color:#ccc;
+	text-align:center;
+	margin-top:10px;
+	height:40px;line-height:40px;}
+.small{
+	height:60px;
+	width:60px;
+	float:left;
+	margin:5px;}
+#menu ul li a{
+	display:block;
+	line-height:30px;
+	font-size:18px;
+	font-weight:bold;}
+#menu li{
+	position:fixed;
+	width:50px;
+	left:50%;
+	margin-left:280px;
+	top:100px;
+	border-color:#fff;}
+#menu ul li a:hover,.current{
+	background-color:#8bf;
+	color:#fff;}
+h2{
+	display:block;
+	margin-top:15px;}
+</style>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+// 使用JS实现，点击不同的按钮(卡片模式和列表模式)显示不同的模式。
+//切换列表模式和卡片模式 不一样的效果，列表模式 默认，卡片模式，去每一个掉img节点的父节点small属性，将图片地址改为大图片，改变按钮属性
+window.onload=function(){
+	var btn1=document.getElementById("btn1");
+	var btn2=document.getElementById("btn2");
+	var imgs=document.getElementsByTagName("img");
+	var imgsArr=["images/53ab7cf4000196c000500050.jpg","images/11.jpg","images/22.jpg","images/33.jpg","images/44.jpg","images/53ab7cf4000196c000500050.jpg","images/53ab7cf4000196c000500050.jpg","images/11.jpg","images/22.jpg","images/33.jpg","images/44.jpg","images/53ab7cf4000196c000500050.jpg","images/53ab7cf4000196c000500050.jpg","images/11.jpg","images/22.jpg","images/33.jpg","images/44.jpg","images/53ab7cf4000196c000500050.jpg","images/53ab7cf4000196c000500050.jpg","images/11.jpg","images/22.jpg","images/33.jpg","images/44.jpg","images/53ab7cf4000196c000500050.jpg"];
+	var imgsArr2=["images/53ab7d16000159a801640236.png","images/111.jpg","images/222.jpg","images/333.jpg","images/444.jpg","images/53ab7d16000159a801640236.png","images/53ab7d16000159a801640236.png","images/111.jpg","images/222.jpg","images/333.jpg","images/444.jpg","images/53ab7d16000159a801640236.png","images/53ab7d16000159a801640236.png","images/111.jpg","images/222.jpg","images/333.jpg","images/444.jpg","images/53ab7d16000159a801640236.png","images/53ab7d16000159a801640236.png","images/111.jpg","images/222.jpg","images/333.jpg","images/444.jpg","images/53ab7d16000159a801640236.png"];
+	//给卡片模式添加点击事件
+	btn2.onclick=function(){
+		btn2.className="btn-car-on";
+		btn1.className="btn-list-off";
+		for(var i=0;i<imgs.length;i++){
+			
+			imgs[i].parentNode.className="a-img";
+			imgs[i].src=imgsArr2[i];
+			}		
+		
+		}
+	btn1.onclick=function(){
+		btn1.className="btn-list-on";
+		btn2.className="btn-car-off";
+		for(var i=0;i<imgs.length;i++){
+			imgs[i].parentNode.className="a-img small";
+			imgs[i].src=imgsArr[i];
+			
+			}	
+		
+		}
+	
+	}
+	//获取黄标到浏览器顶部的位置，获取4个div到顶部的位置，当光标的距离与div到顶部的距离相等，改变导航栏的current属性，添加到相对应的a链接上，删除其他的
+$(document).ready(function() {
+ 	$(window).scroll(function(){
+		var top=$(document).scrollTop();  //对scrollTop不熟悉
+		var menu=$("#menu");
+		var items=$("#box").find(".item");
+		var currentId="";
+		
+		items.each(function() {
+            var m=$(this);
+			var itemTop=m.offset().top;
+			//console.log(top);
+			//console.log(itemTop);
+			if(top>itemTop-350){
+				currentId="#"+m.attr("id"); //注意找属性应该是div的，不是a链接的		
+				console.log(currentId);
+				}else{
+				return false;}
+        });  
+		
+
+		var currentLink=menu.find(".current");
+		if(currentId && currentLink.attr("href")!=currentId){ //注意attr后面试括号()不是[]
+			currentLink.removeClass("current");
+			menu.find("[href="+currentId+"]").addClass("current");
+			}
+
+		
+	 });
+});
+
+</script>
+</head>
+
+<body>
+
+<div id="menu">
+	<ul>
+		<li>
+			<a href="#item1" class="current">一楼</a>
+			<a href="#item2">二楼</a>
+			<a href="#item3">三楼</a>
+			<a href="#item4">四楼</a>
+		</li>
+	</ul>
+</div>
+
+<div id="box">
+	<div class="top">
+		<a href="#" title="列表模式" id="btn1" class="btn-list-on"></a>
+		<a href="#" title="卡片模式" id="btn2" class="btn-car-off"></a>
+	</div>
+    <div id="item1" class="item">
+    	<h2>一楼</h2>
+		<ul>
+		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/53ab7cf4000196c000500050.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/11.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/22.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/33.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/44.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/53ab7cf4000196c000500050.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 
+		</ul>
+    </div>
+    
+    <div id="item2" class="item">
+   		 <h2>二楼</h2>
+   	 	<ul>
+			<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/53ab7cf4000196c000500050.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/11.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/22.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/33.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/44.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/53ab7cf4000196c000500050.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+	 
+		</ul>
+     </div>
+     <div id="item3" class="item">
+    	<h2>三楼</h2>
+    	<ul>
+			<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/53ab7cf4000196c000500050.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/11.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/22.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/33.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/44.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/53ab7cf4000196c000500050.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+ 
+		</ul>
+     </div>
+     <div id="item4" class="item">
+    	<h2>四楼</h2>
+    	<ul>
+		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/53ab7cf4000196c000500050.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/11.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/22.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/33.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/44.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 		<li>
+			<div class="con">
+			<a href="#" class="a-img small">
+				<img src="images/53ab7cf4000196c000500050.jpg"/>
+			</a>
+			<p>
+				<a href="#">白阳</a>
+				<span>辽宁</span>
+				<span>21个共同好友</span>
+			 </p> 
+			 </div>
+			 <div class="bottom">
+			 	未分组的好友
+			 </div>
+		</li>
+		 
+		</ul>
+     </div>
+</div>
+
+</body>
+</html>

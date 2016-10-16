@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title> 事件</title>  
+  <script type="text/javascript">
+	function count(){
+		var txt1=document.getElementById("txt1").value;
+		var txt2=document.getElementById("txt2").value;
+		var sel=document.getElementById("select").value; //取值
+		var num;
+		switch(sel)
+		{
+			case "+": num = parseInt(txt1) +parseInt(txt2) ;break;
+			case "-": num = parseInt(txt1)  - parseInt(txt2) ; break;
+			case "*": num = parseInt(txt1)  *parseInt(txt2) ;break;
+			default: num = parseInt(txt1)  / parseInt(txt2) ;
+			}
+		document.getElementById("txt3").value=num; //取值
+		
+		}
+  </script> 
+ </head> 
+ <body>
+<input type="text" id="txt1"/>
+<select id="select"> <!--是id，不是value-->
+<option value="+">+</option>
+<option value="-">-</option>
+<option value="*">*</option>
+<option value="/">/</option>
+</select>
+<input type="text" id="txt2"/>
+<input type="button" value="=" onClick="count()"/>
+<input type="text" id="txt3"/>
+ </body>
+</html>
